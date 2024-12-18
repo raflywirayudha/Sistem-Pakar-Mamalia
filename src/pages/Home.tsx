@@ -70,36 +70,36 @@ const MammalExpertSystem: React.FC = () => {
   };
 
   return (
-    <header className="dark:bg-secondaryBlack inset-0 flex min-h-[80dvh] w-full items-center justify-center bg-white bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-[size:70px_70px] mt-8">
-      <Card className="bg-white p-10 w-full max-w-xl flex items-center justify-center">
+    <header className="dark:bg-secondaryBlack inset-0 flex min-h-[80dvh] w-full items-center justify-center bg-white bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-[size:70px_70px] mt-8 px-4">
+      <Card className="bg-white p-6 md:p-10 w-full max-w-xl flex items-center justify-center">
         {!predictedMammal ? (
-          <div className="p-5">
+          <div className="p-3 md:p-5 w-full">
             <div className="mb-4">
-              <h1 className="font-bold text-center text-2xl">
+              <h1 className="font-bold text-center text-xl md:text-2xl">
                 {currentQuestion.text}
               </h1>
-              <p className="text-base text-center text-gray-500 mb-5">
+              <p className="text-sm md:text-base text-center text-gray-500 mb-5">
                 {currentQuestion.description}
               </p>
             </div>
-            <div className="flex justify-between space-x-4 ">
+            <div className="flex flex-col md:flex-row justify-between space-y-3 md:space-y-0 md:space-x-4">
               <Button
                 onClick={() => handleResponse(1)}
-                className="flex-1 bg-green btn btn-primary flex items-center justify-center space-x-2  text-black py-2 rounded hover:bg-green-600"
+                className="w-full md:flex-1 bg-green btn btn-primary flex items-center justify-center space-x-2 text-black py-2 rounded hover:bg-green-600"
               >
                 <Check size={20} />
                 <span>Ya</span>
               </Button>
               <Button
                 onClick={() => handleResponse(0.5)}
-                className="flex-1 btn btn-secondary flex items-center justify-center space-x-2 bg-yellow text-black py-2 rounded hover:bg-yellow-600"
+                className="w-full md:flex-1 btn btn-secondary flex items-center justify-center space-x-2 bg-yellow text-black py-2 rounded hover:bg-yellow-600"
               >
                 <HelpCircle size={20} />
                 <span>Mungkin</span>
               </Button>
               <Button
                 onClick={() => handleResponse(0)}
-                className="flex-1 btn btn-danger flex items-center justify-center space-x-2 bg-red text-black py-2 rounded hover:bg-red-600"
+                className="w-full md:flex-1 btn btn-danger flex items-center justify-center space-x-2 bg-red text-black py-2 rounded hover:bg-red-600"
               >
                 <AlertCircle size={20} />
                 <span>Tidak</span>
@@ -107,18 +107,21 @@ const MammalExpertSystem: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">
+          <div className="text-center w-full">
+            <h2 className="text-xl md:text-2xl font-bold mb-4">
               {predictedMammal ? predictedMammal.name : "Tidak Ditemukan"}
             </h2>
             {predictedMammal && (
               <div>
-                <div className=" p-4 rounded mb-4">
+                <div className="p-4 rounded mb-4">
                   <h3 className="font-semibold mb-2">Gambar</h3>
+                  {/* Tambahkan Image component di sini */}
                 </div>
                 <div className="p-4 rounded mb-4">
                   <h3 className="font-semibold mb-2">Karakteristik Unik:</h3>
-                  <p>{predictedMammal.uniqueCharacteristic}</p>
+                  <p className="text-sm md:text-base">
+                    {predictedMammal.uniqueCharacteristic}
+                  </p>
                 </div>
               </div>
             )}
