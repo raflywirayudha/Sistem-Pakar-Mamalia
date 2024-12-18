@@ -15,16 +15,7 @@ export default function Header() {
           Sistem Pakar Mamalia
         </h1>
         <p className="my-12 mt-8 text-lg font-normal leading-relaxed md:text-xl lg:text-2xl lg:leading-relaxed">
-          Get started with your saas landing page in minutes.
-          <br /> Check the{" "}
-          <a
-            target="_blank"
-            href="https://github.com/neobrutalism-templates/saas"
-            className="font-heading underline"
-          >
-            github repo
-          </a>{" "}
-          for more info.
+          By Kelompok 2
         </p>
         <Button
           size="lg"
