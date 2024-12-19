@@ -2,26 +2,38 @@
 // import { mammals } from "../data/mammals";
 // import Question from "../components/Question";
 // import Result from "../components/Result";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
-// components/MammalExpertSystem.tsx
 import { useState } from "react";
 import { AlertCircle, Check, HelpCircle } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Mammal, Question } from "../types/mammal";
 import { MAMMALS } from "../data/mammals";
 import { QUESTIONS } from "../types/mammal";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 // Mendefinisikan tipe kategori pertanyaan berdasarkan kategori yang ada
 type CategoryType = keyof typeof questionCategories;
 
 // Mendefinisikan struktur kategori pertanyaan, dimana setiap kategori berisi ID pertanyaan.
 const questionCategories = {
-  klasifikasi: ["b1"],
-  habitat: ["b2", "b3", "b4", "b5", "b6"],
-  jenisMakanan: ["b7", "b8", "b9", "b10", "b11", "b12"],
+  tempatTinggal: ["b1", "b2"],
+  habitat: ["b3", "b4", "b5", "b6", "b7"],
+  jenisMakanan: ["b8", "b9", "b10", "b11", "b12", "b13"],
   bentukTubuh: [
-    "b13",
     "b14",
     "b15",
     "b16",
@@ -31,10 +43,10 @@ const questionCategories = {
     "b20",
     "b21",
     "b22",
+    "b23",
   ],
-  tingkahLaku: ["b23", "b24", "b25"],
+  tingkahLaku: ["b24", "b25", "b26"],
   warnaTubuh: [
-    "b26",
     "b27",
     "b28",
     "b29",
@@ -44,9 +56,9 @@ const questionCategories = {
     "b33",
     "b34",
     "b35",
+    "b36",
   ],
-  tempatTinggal: ["b36", "b37"],
-} as const;
+};
 
 const getCharacteristicsByCategory = (characteristics: {
   [key: string]: number;
@@ -64,157 +76,226 @@ const getCharacteristicsByCategory = (characteristics: {
 
 // Deskripsi untuk setiap characteristic code
 const characteristicDescriptions: { [key: string]: string } = {
-  b1: "Mamalia",
-  b2: "Habitat Pantai dan Lautan",
-  b3: "Habitat Hutan Hujan",
-  b4: "Habitat Padang Savana/Rumput",
-  b5: "Habitat Area Terbuka",
-  b6: "Habitat Hutan Bakau",
-  b7: "Plankton dan Ikan (jenisMakanan)",
-  b8: "Karnivora",
-  b9: "Herbivora",
-  b10: "Omnivora",
-  b11: "Frugivora",
-  b12: "Insektivora",
-  b13: "Bentuk Tubuh Lonjong",
-  b14: "Berat/Besar dengan Cakar",
-  b15: "Besar dengan Belalai",
-  b16: "Kekar dengan Tangan Panjang",
-  b17: "Berbulu",
-  b18: "Besar dengan Kulit Kasar",
-  b19: "Tegap dengan Cakar Panjang",
-  b20: "Cepat dengan Tanduk",
-  b21: "Kecil dengan Bulu Perisai",
-  b22: "Kecil dengan Ekor Panjang",
-  b23: "Nocturnal",
-  b24: "Soliter",
-  b25: "Kepekaan Gerakan Tinggi",
-  b26: "Warna Abu-abu keputihan",
-  b27: "Warna Orange dengan Garis/Belang",
-  b28: "Warna Abu-abu",
-  b29: "Warna Orange dengan Rambut Panjang",
-  b30: "Warna Hitam dengan Bercak Kuning",
-  b31: "Warna Abu-abu Kelabu",
-  b32: "Warna Hitam dengan Cincin Kuning",
-  b33: "Warna Coklat Pudar dengan Putih",
-  b34: "Warna Coklat Berlian",
-  b35: "Warna Abu-abu Coklat",
-  b36: "Hidup di Air",
-  b37: "Hidup di Darat",
+  b1: "Hidup di Air",
+  b2: "Hidup di Darat",
+  b3: "Habitat Pantai dan Lautan",
+  b4: "Habitat Hutan Hujan",
+  b5: "Habitat Padang Savana/Rumput",
+  b6: "Habitat Area Terbuka",
+  b7: "Habitat Hutan Bakau",
+  b8: "Plankton dan Ikan (jenisMakanan)",
+  b9: "Karnivora",
+  b10: "Herbivora",
+  b11: "Omnivora",
+  b12: "Frugivora",
+  b13: "Insektivora",
+  b14: "Bentuk Tubuh Lonjong",
+  b15: "Berat/Besar dengan Cakar",
+  b16: "Besar dengan Belalai",
+  b17: "Kekar dengan Tangan Panjang",
+  b18: "Berbulu",
+  b19: "Besar dengan Kulit Kasar",
+  b20: "Tegap dengan Cakar Panjang",
+  b21: "Cepat dengan Tanduk",
+  b22: "Kecil dengan Bulu Perisai",
+  b23: "Kecil dengan Ekor Panjang",
+  b24: "Nocturnal",
+  b25: "Soliter",
+  b26: "Kepekaan Gerakan Tinggi",
+  b27: "Warna Abu-abu keputihan",
+  b28: "Warna Orange dengan Garis/Belang",
+  b29: "Warna Abu-abu",
+  b30: "Warna Orange dengan Rambut Panjang",
+  b31: "Warna Hitam dengan Bercak Kuning",
+  b32: "Warna Abu-abu Kelabu",
+  b33: "Warna Hitam dengan Cincin Kuning",
+  b34: "Warna Coklat Pudar dengan Putih",
+  b35: "Warna Coklat Berlian",
+  b36: "Warna Abu-abu Coklat",
 };
 
 // Fungsi utama sistem pakar untuk memprediksi mamalia
 const MammalExpertSystem = () => {
-  // State untuk menyimpan jawaban pengguna berdasarkan ID pertanyaan
   const [userResponses, setUserResponses] = useState<{ [key: string]: number }>(
     {}
   );
-  // State untuk menyimpan mamalia yang diprediksi
   const [predictedMammal, setPredictedMammal] = useState<Mammal | null>(null);
-  // State untuk kategori pertanyaan yang sedang aktif
   const [currentCategory, setCurrentCategory] =
-    useState<CategoryType>("klasifikasi");
-  // State untuk indeks pertanyaan dalam kategori
+    useState<CategoryType>("tempatTinggal");
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const [noMatch, setNoMatch] = useState(false);
+  const [accuracy, setAccuracy] = useState<number>(0);
 
-  // Mengambil pertanyaan yang sesuai dengan kategori dan indeks saat ini
   const getCurrentQuestion = (): Question | undefined => {
     const currentCategoryQuestions = questionCategories[currentCategory];
     const questionId = currentCategoryQuestions[categoryIndex];
     return QUESTIONS.find((q) => q.id === questionId);
   };
 
-  // Berpindah ke kategori berikutnya setelah menyelesaikan satu kategori
-  const moveToNextCategory = () => {
-    const categories = Object.keys(questionCategories) as CategoryType[];
-    const currentCategoryIndex = categories.indexOf(currentCategory);
-
-    // Jika masih ada kategori berikutnya, pindah ke kategori tersebut
-    if (currentCategoryIndex < categories.length - 1) {
-      setCurrentCategory(categories[currentCategoryIndex + 1]);
-      setCategoryIndex(0);
-    } else {
-      // Jika sudah di kategori terakhir, lakukan perhitungan dan prediksi mamalia
-      const result = matchMammal();
-      setPredictedMammal(result);
-    }
-  };
-
-  // Mengecek apakah kategori saat ini dapat dilewati berdasarkan jawaban
+  // Logika untuk menentukan apakah sisa pertanyaan dalam kategori harus dilewati
   const shouldSkipRemainingInCategory = (response: number): boolean => {
-    return response === 1; // Jika pengguna memilih "Ya" (1), pertanyaan sisa di kategori tersebut dilewati
+    if (currentCategory === "tempatTinggal" && response === 1) {
+      return true; // Skip jika user memilih "Ya" untuk pertanyaan tempat tinggal
+    }
+    if (currentCategory === "habitat" && response === 1) {
+      return true; // Skip jika user memilih "Ya" untuk pertanyaan habitat
+    }
+    if (currentCategory === "jenisMakanan" && response === 1) {
+      return true; // Skip jika user memilih "Ya" untuk pertanyaan makanan
+    }
+    if (currentCategory === "bentukTubuh" && response === 1) {
+      return true; // Skip jika user memilih "Ya" untuk pertanyaan bentuk tubuh
+    }
+    if (currentCategory === "warnaTubuh" && response === 1) {
+      return true; // Skip jika user memilih "Ya" untuk pertanyaan warna
+    }
+
+    return false;
   };
 
-  // Menangani jawaban yang diberikan oleh pengguna
   const handleResponse = (response: number) => {
     const currentQuestion = getCurrentQuestion();
     if (!currentQuestion) {
-      moveToNextCategory(); // Jika tidak ada pertanyaan yang ditemukan, pindah ke kategori berikutnya
+      moveToNextCategory();
       return;
     }
 
-    // Menyimpan jawaban pengguna ke state
+    // Simpan respon user
     setUserResponses((prev) => ({
       ...prev,
       [currentQuestion.id]: response,
     }));
 
-    // Cek apakah pertanyaan berikutnya perlu dilewati atau tidak
+    // Cek apakah perlu skip kategori
     if (shouldSkipRemainingInCategory(response)) {
-      moveToNextCategory(); // Jika ya, pindah ke kategori berikutnya
+      // Jika Ya, set semua pertanyaan tersisa dalam kategori ini sebagai 0
+      const currentCategoryQuestions = questionCategories[currentCategory];
+      const remainingQuestions = currentCategoryQuestions.slice(
+        categoryIndex + 1
+      );
+
+      const remainingResponses = remainingQuestions.reduce(
+        (acc, questionId) => ({
+          ...acc,
+          [questionId]: 0,
+        }),
+        {}
+      );
+
+      setUserResponses((prev) => ({
+        ...prev,
+        ...remainingResponses,
+      }));
+
+      // Pindah ke kategori berikutnya
+      moveToNextCategory();
     } else {
+      // Jika tidak perlu skip, lanjut ke pertanyaan berikutnya
       const currentCategoryQuestions = questionCategories[currentCategory];
       if (categoryIndex < currentCategoryQuestions.length - 1) {
-        // Jika ada pertanyaan lain dalam kategori, lanjutkan ke pertanyaan berikutnya
         setCategoryIndex((prev) => prev + 1);
       } else {
-        // Jika tidak ada, pindah ke kategori berikutnya
         moveToNextCategory();
       }
     }
   };
 
-  const matchMammal = (): Mammal | null => {
-    // Menghitung skor kecocokan antara jawaban pengguna dan karakteristik mamalia
-    const matchScores = MAMMALS.map((mammal) => {
-      const score = Object.keys(userResponses).reduce(
-        (total, characteristic) => {
-          const userResponse = userResponses[characteristic];
-          const mammalCharacteristic = mammal.characteristics[characteristic];
-          const difference = Math.abs(userResponse - mammalCharacteristic);
+  const moveToNextCategory = () => {
+    const categories = Object.keys(questionCategories) as CategoryType[];
+    const currentCategoryIndex = categories.indexOf(currentCategory);
 
-          // Penyesuaian bobot untuk jawaban "Tidak" dan "Mungkin"
-          if (userResponse === 0) {
-            // Jika "Tidak", sangat tidak cocok
-            return total + (mammalCharacteristic === 0 ? 1 : 0); // Skor lebih tinggi jika mamalia juga "Tidak"
-          } else if (userResponse === 0.5) {
-            // Jika "Mungkin", perbedaan lebih besar memberi penalti lebih besar
-            return total + (1 - difference) * 0.5; // Bobot lebih rendah untuk "Mungkin"
-          } else {
-            // Jika "Ya", harus sangat cocok
-            return total + (1 - difference);
-          }
-        },
-        0
-      );
-
-      // Menghitung skor rata-rata
-      return { mammal, score: score / Object.keys(userResponses).length };
-    });
-
-    // Menyortir berdasarkan skor tertinggi
-    const bestMatch = matchScores.sort((a, b) => b.score - a.score)[0];
-
-    // Mengubah batas kecocokan lebih ketat, misalnya 0.6
-    return bestMatch.score > 0.6 ? bestMatch.mammal : null;
+    if (currentCategoryIndex < categories.length - 1) {
+      setCurrentCategory(categories[currentCategoryIndex + 1]);
+      setCategoryIndex(0);
+    } else {
+      const result = matchMammal();
+      setPredictedMammal(result);
+    }
   };
 
-  // Mereset sistem untuk memulai dari awal
+  const matchMammal = (): Mammal | null => {
+    const totalQuestions = Object.keys(userResponses).length;
+    if (totalQuestions < 5) {
+      return null;
+    }
+
+    const maybeCount = Object.values(userResponses).filter(
+      (v) => v === 0.5
+    ).length;
+    if (maybeCount > totalQuestions * 0.9) {
+      setNoMatch(true);
+      setAccuracy(0);
+      return null;
+    }
+
+    const noCount = Object.values(userResponses).filter((v) => v === 0).length;
+    if (noCount > totalQuestions * 0.95) {
+      setNoMatch(true);
+      setAccuracy(0);
+      return null;
+    }
+
+    const matchScores = MAMMALS.map((mammal) => {
+      let matchScore = 0;
+      let totalPossibleScore = 0;
+
+      Object.entries(userResponses).forEach(
+        ([characteristic, userResponse]) => {
+          const mammalCharacteristic = mammal.characteristics[characteristic];
+
+          // Calculate weighted scores
+          if (mammalCharacteristic === 1) {
+            totalPossibleScore += 100; // Perfect match possible
+
+            if (userResponse === 1) {
+              matchScore += 100; // Perfect match
+            } else if (userResponse === 0.5) {
+              matchScore += 50; // Partial match
+            }
+            // No points for incorrect matches
+          } else if (mammalCharacteristic === 0) {
+            totalPossibleScore += 100;
+
+            if (userResponse === 0) {
+              matchScore += 100; // Correct negative match
+            } else if (userResponse === 0.5) {
+              matchScore += 50; // Uncertain but acceptable
+            }
+          }
+        }
+      );
+
+      // Calculate accuracy as a percentage of maximum possible score
+      const accuracy =
+        totalPossibleScore > 0 ? (matchScore / totalPossibleScore) * 100 : 0;
+      const normalizedScore = accuracy / 100; // Convert to 0-1 scale for sorting
+
+      return { mammal, score: normalizedScore, accuracy };
+    });
+
+    const bestMatches = matchScores.sort((a, b) => b.score - a.score);
+
+    if (
+      bestMatches[0].score < 0.15 ||
+      (bestMatches[1] && bestMatches[0].score - bestMatches[1].score < 0.03)
+    ) {
+      setNoMatch(true);
+      setAccuracy(0);
+      return null;
+    }
+
+    setNoMatch(false);
+    setAccuracy(bestMatches[0].accuracy);
+    return bestMatches[0].mammal;
+  };
+
   const resetExpertSystem = () => {
     setUserResponses({});
     setPredictedMammal(null);
-    setCurrentCategory("klasifikasi");
+    setCurrentCategory("tempatTinggal");
     setCategoryIndex(0);
+    setNoMatch(false);
+    setAccuracy(0);
   };
 
   // Mendapatkan pertanyaan saat ini
@@ -243,37 +324,42 @@ const MammalExpertSystem = () => {
 
   // Render UI berdasarkan apakah mamalia sudah diprediksi atau belum
   return (
-    <header className="dark:bg-secondaryBlack inset-0 flex min-h-[80dvh] w-full items-center justify-center bg-white bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-[size:70px_70px] mt-8 px-4">
+    <header className="dark:bg-secondaryBlack inset-0 flex min-h-screen w-full flex-col items-center justify-center bg-yellowbg bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-[size:70px_70px]">
       <Card className="bg-white p-6 md:p-10 w-full max-w-xl flex items-center justify-center">
-        {!predictedMammal ? (
-          // Jika mamalia belum diprediksi, tampilkan pertanyaan untuk pengguna
+        {!predictedMammal && !noMatch ? (
           <div className="p-3 md:p-5 w-full">
             <div className="mb-4">
+              <img
+                src="/thinking.png"
+                alt="thinking"
+                className="w-64 h-auto mx-auto animate-bounceUpDown"
+              />
+
               <h1 className="font-bold text-center text-xl md:text-2xl">
-                {currentQuestion.text}
+                {currentQuestion?.text}
               </h1>
               <p className="text-sm md:text-base text-center text-gray-500 mb-5">
-                {currentQuestion.description}
+                {currentQuestion?.description}
               </p>
             </div>
             <div className="flex flex-col md:flex-row justify-between space-y-3 md:space-y-0 md:space-x-4">
               <Button
                 onClick={() => handleResponse(1)}
-                className="w-full md:flex-1 bg-green btn btn-primary flex items-center justify-center space-x-2 text-black py-2 rounded hover:bg-green-600"
+                className="w-full md:flex-1 bg-green hover:bg-green-600 flex items-center justify-center space-x-2 text-black py-2 rounded"
               >
                 <Check size={20} />
                 <span>Ya</span>
               </Button>
               <Button
                 onClick={() => handleResponse(0.5)}
-                className="w-full md:flex-1 btn btn-secondary flex items-center justify-center space-x-2 bg-yellow text-black py-2 rounded hover:bg-yellow-600"
+                className="w-full md:flex-1 bg-yellow hover:bg-yellow-600 flex items-center justify-center space-x-2 text-black py-2 rounded"
               >
                 <HelpCircle size={20} />
                 <span>Mungkin</span>
               </Button>
               <Button
                 onClick={() => handleResponse(0)}
-                className="w-full md:flex-1 btn btn-danger flex items-center justify-center space-x-2 bg-red text-black py-2 rounded hover:bg-red-600"
+                className="w-full md:flex-1 bg-red hover:bg-red-600 flex items-center justify-center space-x-2 text-black py-2 rounded"
               >
                 <AlertCircle size={20} />
                 <span>Tidak</span>
@@ -281,62 +367,131 @@ const MammalExpertSystem = () => {
             </div>
           </div>
         ) : (
-          // Jika mamalia sudah diprediksi, tampilkan hasil prediksi
           <div className="text-center w-full">
-            {predictedMammal && (
-              <>
-                <h2 className="text-xl md:text-2xl font-bold mb-4">
-                  {predictedMammal.name}
+            {noMatch ? (
+              <div className="mb-6">
+                <img
+                  src="/gatau.png"
+                  alt="gatau"
+                  className="w-64 h-auto mx-auto animate-bounceUpDown"
+                />
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-red-600">
+                  Maaf, tidak bisa menemukan mamalia yang kamu maksud
                 </h2>
-                <div>
-                  <div className="p-4 rounded mb-4">
-                    <img
-                      src={predictedMammal?.image}
-                      alt={predictedMammal?.name}
-                      className="w-full max-w-md rounded mx-auto object-contain"
-                    />
-                  </div>
-                  <div className="p-4 rounded mb-4">
-                    <h3 className="font-semibold mb-2">Karakteristik Unik:</h3>
-                    <p className="text-sm md:text-base">
-                      {predictedMammal.uniqueCharacteristic}
-                    </p>
-                  </div>
-                  <div className="p-4 rounded mb-4 flex justify-center content-center flex-col">
-                    <h3 className="font-semibold mb-2">
-                      Karakteristik Berdasarkan Kategori:
-                    </h3>
-                    {Object.entries(
-                      getCharacteristicsByCategory(
-                        predictedMammal.characteristics
-                      )
-                    ).map(([category, characteristics]) =>
-                      characteristics && characteristics.length > 0 ? (
-                        <div key={category} className="mb-4 flex items-start">
-                          <h4 className="text-lg text-start font-bold capitalize min-w-[150px]">
-                            {category}:
-                          </h4>
-                          <div className="ml-2 flex-1">
-                            {characteristics.map((char, index) => (
-                              <p key={index} className="text-sm text-start">
-                                {char}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
+                <p className="text-gray-600 mb-4">
+                  Jawaban yang diberikan tidak cukup spesifik atau tidak cocok
+                  dengan mamalia dalam database.
+                </p>
+                <Button
+                  onClick={resetExpertSystem}
+                  className="bg-green text-black px-4 py-2 rounded hover:bg-green-600"
+                >
+                  Mulai Ulang
+                </Button>
+              </div>
+            ) : (
+              predictedMammal && (
+                <>
+                  <img
+                    src="/yey.png"
+                    alt="yey"
+                    className="w-64 h-auto mx-auto animate-bounceUpDown"
+                  />
+                  <h2 className="text-xl md:text-2xl font-bold mb-4">
+                    {predictedMammal.name}
+                  </h2>
 
-            <Button
-              onClick={resetExpertSystem}
-              className="bg-green text-black px-4 py-2 rounded hover:bg-green-600"
-            >
-              Mulai Ulang
-            </Button>
+                  <div>
+                    <div className="p-4 rounded mb-4">
+                      <img
+                        src={predictedMammal.image}
+                        alt={predictedMammal.name}
+                        className="w-64 h-auto mx-auto rounded-lg"
+                      />
+                      <div className="mb-4">
+                        <p className="text-sm font-semibold text-center mt-5">
+                          Akurasi{" "}
+                          <span className="font-bold text-lg text-blue-800">
+                            {accuracy.toFixed(1)}%
+                          </span>
+                        </p>
+                        <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                          <div
+                            className="bg-green h-2.5 rounded-full"
+                            style={{ width: `${accuracy}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="w-full mb-4"
+                    >
+                      <AccordionItem value="characteristics">
+                        <AccordionTrigger className="text-lg font-semibold">
+                          Karakteristik Berdasarkan Kategori
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="p-4">
+                            <Table className="w-full">
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead className="text-left w-1/3">
+                                    Kategori
+                                  </TableHead>
+                                  <TableHead className="text-left w-2/3">
+                                    Karakteristik
+                                  </TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {Object.entries(
+                                  getCharacteristicsByCategory(
+                                    predictedMammal.characteristics
+                                  )
+                                ).map(([category, characteristics]) =>
+                                  characteristics &&
+                                  characteristics.length > 0 ? (
+                                    <TableRow key={category}>
+                                      <TableCell className="font-bold bg-white text-start">
+                                        {category
+                                          .replace(/([a-z])([A-Z])/g, "$1 $2")
+                                          .replace(/^./, (str) =>
+                                            str.toUpperCase()
+                                          )}
+                                      </TableCell>
+                                      <TableCell className="bg-white text-start">
+                                        {characteristics.map((char, index) => (
+                                          <div
+                                            key={index}
+                                            className="mb-1 last:mb-0"
+                                          >
+                                            {char}
+                                          </div>
+                                        ))}
+                                      </TableCell>
+                                    </TableRow>
+                                  ) : null
+                                )}
+                              </TableBody>
+                            </Table>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+
+                    <Button
+                      onClick={resetExpertSystem}
+                      className="bg-red text-white px-4 py-2 rounded hover:bg-green-600"
+                    >
+                      Mulai Ulang
+                    </Button>
+                  </div>
+                </>
+              )
+            )}
           </div>
         )}
       </Card>

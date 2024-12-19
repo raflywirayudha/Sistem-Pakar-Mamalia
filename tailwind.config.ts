@@ -25,6 +25,7 @@ const config: Config = {
         green: "#A3E636",
         red: "#ff6b6b",
         yellow: "#FFDC58",
+        yellowbg: "#fae38e",
 
         // dark mode
         darkBg: "#2c312b",
@@ -50,6 +51,10 @@ const config: Config = {
         heading: "700",
       },
       keyframes: {
+        bounceUpDown: {
+          "0%, 100%": { transform: "translateY(-5px)" },
+          "50%": { transform: "translateY(2px)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -68,6 +73,7 @@ const config: Config = {
         },
       },
       animation: {
+        bounceUpDown: "bounceUpDown 3s infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         marquee: "marquee 15s linear infinite",

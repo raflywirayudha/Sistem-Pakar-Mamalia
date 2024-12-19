@@ -1,96 +1,11 @@
 // data/mammals.ts
 import { Mammal } from "@/types/mammal";
 
-// Characteristic codes:
-// b1: Mamalia
-// b2: Habitat Pantai dan Lautan
-// b3: Habitat Hutan Hujan
-// b4: Habitat Padang Savana/Rumput
-// b5: Habitat Area Terbuka
-// b6: Habitat Hutan Bakau
-// b7: Plankton dan Ikan (Diet)
-// b8: Karnivora
-// b9: Herbivora
-// b10: Omnivora
-// b11: Frugivora
-// b12: Insektivora
-// b13: Bentuk Tubuh Lonjong
-// b14: Berat/Besar dengan Cakar
-// b15: Besar dengan Belalai
-// b16: Kekar dengan Tangan Panjang
-// b17: Berbulu
-// b18: Besar dengan Kulit Kasar
-// b19: Tegap dengan Cakar Panjang
-// b20: Cepat dengan Tanduk
-// b21: Kecil dengan Bulu Perisai
-// b22: Kecil dengan Ekor Panjang
-// b23: Nocturnal
-// b24: Soliter
-// b25: Kepekaan Gerakan Tinggi
-// b26: Warna Abu-abu keputihan
-// b27: Warna Orange dengan Garis/Belang
-// b28: Warna Abu-abu
-// b29: Warna Orange dengan Rambut Panjang
-// b30: Warna Hitam dengan Bercak Kuning
-// b31: Warna Abu-abu Kelabu
-// b32: Warna Hitam dengan Cincin Kuning
-// b33: Warna Coklat Pudar dengan Putih
-// b34: Warna Coklat Berlian
-// b35: Warna Abu-abu Coklat
-// b36: Hidup di Air
-// b37: Hidup di Darat
-
 export const MAMMALS: Mammal[] = [
   {
     name: "Lumba-Lumba Hidung Botol",
     image: "/lumba.jpg",
-    uniqueCharacteristic:
-      "Mamalia laut dengan bentuk tubuh lonjong yang hidup di perairan pantai dan lautan",
-    characteristics: {
-      b1: 1,
-      b2: 1,
-      b3: 0,
-      b4: 0,
-      b5: 0,
-      b6: 0,
-      b7: 1,
-      b8: 0,
-      b9: 0,
-      b10: 0,
-      b11: 0,
-      b12: 0,
-      b13: 1,
-      b14: 0,
-      b15: 0,
-      b16: 0,
-      b17: 0,
-      b18: 0,
-      b19: 0,
-      b20: 0,
-      b21: 0,
-      b22: 0,
-      b23: 1,
-      b24: 0,
-      b25: 0,
-      b26: 1,
-      b27: 0,
-      b28: 0,
-      b29: 0,
-      b30: 0,
-      b31: 0,
-      b32: 0,
-      b33: 0,
-      b34: 0,
-      b35: 0,
-      b36: 1,
-      b37: 0,
-    },
-  },
-  {
-    name: "Harimau Sumatera",
-    image: "/harimau.jpg",
-    uniqueCharacteristic:
-      "Karnivora besar dengan cakar kuat dan pola belang khas orange-hitam",
+
     characteristics: {
       b1: 1,
       b2: 0,
@@ -128,19 +43,17 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Gajah Asia",
-    image: "/gajah.jpg",
-    uniqueCharacteristic:
-      "Herbivora besar dengan belalai dan kepekaan gerakan tinggi",
+    name: "Harimau Sumatera",
+    image: "/harimau.jpg",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
-      b4: 1,
+      b1: 0,
+      b2: 1,
+      b3: 0,
+      b4: 0,
       b5: 0,
       b6: 0,
       b7: 0,
@@ -173,19 +86,18 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Orangutan",
-    image: "/orangutan.jpg",
-    uniqueCharacteristic: "Primata dengan tubuh kekar dan tangan panjang",
+    name: "Gajah Asia",
+    image: "/gajah.jpg",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
+      b1: 0,
+      b2: 1,
+      b3: 0,
       b4: 0,
-      b5: 0,
+      b5: 1,
       b6: 0,
       b7: 0,
       b8: 0,
@@ -204,9 +116,9 @@ export const MAMMALS: Mammal[] = [
       b21: 0,
       b22: 0,
       b23: 0,
-      b24: 1,
+      b24: 0,
       b25: 0,
-      b26: 0,
+      b26: 1,
       b27: 0,
       b28: 0,
       b29: 1,
@@ -217,19 +129,17 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Kelelawar Buah",
-    image: "/kelelawar.jpg",
-    uniqueCharacteristic: "Mamalia terbang dengan bulu hitam dan bercak kuning",
+    name: "Orangutan",
+    image: "/orangutan.jpg",
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
-      b4: 0,
-      b5: 1,
+      b1: 0,
+      b2: 1,
+      b3: 0,
+      b4: 1,
+      b5: 0,
       b6: 0,
       b7: 0,
       b8: 0,
@@ -247,9 +157,9 @@ export const MAMMALS: Mammal[] = [
       b20: 0,
       b21: 0,
       b22: 0,
-      b23: 1,
+      b23: 0,
       b24: 0,
-      b25: 0,
+      b25: 1,
       b26: 0,
       b27: 0,
       b28: 0,
@@ -261,26 +171,25 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Badak Jawa",
-    image: "/badak.jpeg",
-    uniqueCharacteristic: "Herbivora besar dengan kulit kasar abu-abu",
+    name: "Kelelawar Buah",
+    image: "/kelelawar.jpg",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
-      b4: 0,
+      b1: 0,
+      b2: 1,
+      b3: 0,
+      b4: 1,
       b5: 0,
       b6: 1,
       b7: 0,
       b8: 0,
-      b9: 1,
+      b9: 0,
       b10: 0,
       b11: 0,
-      b12: 0,
+      b12: 1,
       b13: 0,
       b14: 0,
       b15: 0,
@@ -305,21 +214,20 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Beruang Madu",
-    image: "/beruang_madu.png",
-    uniqueCharacteristic: "Omnivora dengan tubuh tegap dan cakar panjang",
+    name: "Badak Jawa",
+    image: "/badak.jpeg",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
+      b1: 0,
+      b2: 1,
+      b3: 0,
       b4: 0,
       b5: 0,
       b6: 0,
-      b7: 0,
+      b7: 1,
       b8: 0,
       b9: 0,
       b10: 1,
@@ -336,8 +244,8 @@ export const MAMMALS: Mammal[] = [
       b21: 0,
       b22: 0,
       b23: 0,
-      b24: 1,
-      b25: 0,
+      b24: 0,
+      b25: 1,
       b26: 0,
       b27: 0,
       b28: 0,
@@ -349,25 +257,24 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Rusa Timor",
-    image: "/rusa_timor.jpg",
-    uniqueCharacteristic: "Herbivora dengan tanduk dan warna coklat pudar",
+    name: "Beruang Madu",
+    image: "/beruang_madu.png",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
+      b1: 0,
+      b2: 1,
+      b3: 0,
       b4: 1,
       b5: 0,
       b6: 0,
       b7: 0,
       b8: 0,
-      b9: 1,
+      b9: 0,
       b10: 0,
-      b11: 0,
+      b11: 1,
       b12: 0,
       b13: 0,
       b14: 0,
@@ -379,9 +286,9 @@ export const MAMMALS: Mammal[] = [
       b20: 1,
       b21: 0,
       b22: 0,
-      b23: 1,
+      b23: 0,
       b24: 0,
-      b25: 0,
+      b25: 1,
       b26: 0,
       b27: 0,
       b28: 0,
@@ -393,26 +300,25 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Trenggiling Jawa",
-    image: "/trenggiling.jpg",
-    uniqueCharacteristic: "Insektivora kecil dengan bulu perisai",
+    name: "Rusa Timor",
+    image: "/rusa_timor.jpg",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
+      b1: 0,
+      b2: 1,
+      b3: 0,
       b4: 0,
       b5: 1,
       b6: 0,
       b7: 0,
       b8: 0,
       b9: 0,
-      b10: 0,
+      b10: 1,
       b11: 0,
-      b12: 1,
+      b12: 0,
       b13: 0,
       b14: 0,
       b15: 0,
@@ -423,8 +329,8 @@ export const MAMMALS: Mammal[] = [
       b20: 0,
       b21: 1,
       b22: 0,
-      b23: 1,
-      b24: 0,
+      b23: 0,
+      b24: 1,
       b25: 0,
       b26: 0,
       b27: 0,
@@ -437,27 +343,26 @@ export const MAMMALS: Mammal[] = [
       b34: 1,
       b35: 0,
       b36: 0,
-      b37: 1,
     },
   },
   {
-    name: "Kuskus",
-    image: "/kuskus.jpg",
-    uniqueCharacteristic: "Herbivora kecil dengan ekor panjang",
+    name: "Trenggiling Jawa",
+    image: "/trenggiling.jpg",
+
     characteristics: {
-      b1: 1,
-      b2: 0,
-      b3: 1,
-      b4: 0,
-      b5: 1,
-      b6: 0,
+      b1: 0,
+      b2: 1,
+      b3: 0,
+      b4: 1,
+      b5: 0,
+      b6: 1,
       b7: 0,
       b8: 0,
-      b9: 1,
+      b9: 0,
       b10: 0,
       b11: 0,
       b12: 0,
-      b13: 0,
+      b13: 1,
       b14: 0,
       b15: 0,
       b16: 0,
@@ -481,7 +386,49 @@ export const MAMMALS: Mammal[] = [
       b34: 0,
       b35: 1,
       b36: 0,
-      b37: 1,
+    },
+  },
+  {
+    name: "Kuskus",
+    image: "/kuskus.jpg",
+
+    characteristics: {
+      b1: 0,
+      b2: 1,
+      b3: 0,
+      b4: 1,
+      b5: 0,
+      b6: 1,
+      b7: 0,
+      b8: 0,
+      b9: 0,
+      b10: 1,
+      b11: 0,
+      b12: 0,
+      b13: 0,
+      b14: 0,
+      b15: 0,
+      b16: 0,
+      b17: 0,
+      b18: 0,
+      b19: 0,
+      b20: 0,
+      b21: 0,
+      b22: 0,
+      b23: 1,
+      b24: 0,
+      b25: 1,
+      b26: 0,
+      b27: 0,
+      b28: 0,
+      b29: 0,
+      b30: 0,
+      b31: 0,
+      b32: 0,
+      b33: 0,
+      b34: 0,
+      b35: 0,
+      b36: 1,
     },
   },
 ];
