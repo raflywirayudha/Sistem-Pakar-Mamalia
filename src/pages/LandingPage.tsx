@@ -20,7 +20,7 @@ export default function Header() {
           className="mt-10 w-64 h-auto mx-auto animate-bounceUpDown"
         />
         <p className="my-12 mt-8 text-lg font-normal leading-relaxed md:text-xl lg:text-2xl lg:leading-relaxed">
-          By <span className="font-bold">Kelompok 2</span>
+          By <span className="font-bold">RASCHWALTH 😈</span>
         </p>
         <Button
           size="lg"
