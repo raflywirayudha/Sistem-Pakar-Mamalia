@@ -25,7 +25,7 @@ export default function Header() {
         <Button
           size="lg"
           onClick={handleClick}
-          className="h-12 text-base font-heading md:text-lg lg:h-14 lg:text-xl"
+          className="h-12 w-64 text-base font-heading md:text-lg lg:h-14 lg:text-xl rounded-full"
         >
           Mulai
         </Button>

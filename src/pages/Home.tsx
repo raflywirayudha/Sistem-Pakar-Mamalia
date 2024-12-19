@@ -18,7 +18,6 @@ import { QUESTIONS } from "../types/mammal";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -325,9 +324,9 @@ const MammalExpertSystem = () => {
   // Render UI berdasarkan apakah mamalia sudah diprediksi atau belum
   return (
     <header className="dark:bg-secondaryBlack inset-0 flex min-h-screen w-full flex-col items-center justify-center bg-yellowbg bg-[linear-gradient(to_right,#80808033_1px,transparent_1px),linear-gradient(to_bottom,#80808033_1px,transparent_1px)] bg-[size:70px_70px]">
-      <Card className="bg-white p-6 md:p-10 w-full max-w-xl flex items-center justify-center">
+      <Card className="bg-white md:p-10 w-full md:max-w-5xl flex items-center justify-center">
         {!predictedMammal && !noMatch ? (
-          <div className="p-3 md:p-5 w-full">
+          <div className="p-3 md:p-5 ">
             <div className="mb-4">
               <img
                 src="/thinking.png"
@@ -342,7 +341,7 @@ const MammalExpertSystem = () => {
                 {currentQuestion?.description}
               </p>
             </div>
-            <div className="flex flex-col md:flex-row justify-between space-y-3 md:space-y-0 md:space-x-4">
+            <div className="flex flex-row md:flex-row justify-center  md:space-y-0 md:space-x-4n space-x-2">
               <Button
                 onClick={() => handleResponse(1)}
                 className="w-full md:flex-1 bg-green hover:bg-green-600 flex items-center justify-center space-x-2 text-black py-2 rounded"
@@ -391,105 +390,81 @@ const MammalExpertSystem = () => {
               </div>
             ) : (
               predictedMammal && (
-                <>
-                  <img
-                    src="/yey.png"
-                    alt="yey"
-                    className="w-64 h-auto mx-auto animate-bounceUpDown"
-                  />
-                  <h2 className="text-xl md:text-2xl font-bold mb-4">
+                <div className="">
+                  <h2 className="text-2xl  md:text-4xl font-bold mb-4">
                     {predictedMammal.name}
                   </h2>
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold text-center mt-5">
+                      Akurasi{" "}
+                      <span className="font-bold text-lg text-blue-800">
+                        {accuracy.toFixed(1)}%
+                      </span>
+                    </p>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                      <div
+                        className="bg-green h-2.5 rounded-full"
+                        style={{ width: `${accuracy}%` }}
+                      ></div>
+                    </div>
+                  </div>
 
-                  <div>
-                    <div className="p-4 rounded mb-4">
+                  <div className="md:grid md:grid-cols-2">
+                    <div className="p-4 rounded flex items-center ">
                       <img
                         src={predictedMammal.image}
                         alt={predictedMammal.name}
-                        className="w-64 h-auto mx-auto rounded-lg"
+                        className="w-auto h-auto mx-auto rounded-lgn "
                       />
-                      <div className="mb-4">
-                        <p className="text-sm font-semibold text-center mt-5">
-                          Akurasi{" "}
-                          <span className="font-bold text-lg text-blue-800">
-                            {accuracy.toFixed(1)}%
-                          </span>
-                        </p>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                          <div
-                            className="bg-green h-2.5 rounded-full"
-                            style={{ width: `${accuracy}%` }}
-                          ></div>
-                        </div>
-                      </div>
                     </div>
 
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="w-full mb-4"
-                    >
-                      <AccordionItem value="characteristics">
-                        <AccordionTrigger className="text-lg font-semibold">
-                          Karakteristik Berdasarkan Kategori
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <div className="p-4">
-                            <Table className="w-full">
-                              <TableHeader>
-                                <TableRow>
-                                  <TableHead className="text-left w-1/3">
-                                    Kategori
-                                  </TableHead>
-                                  <TableHead className="text-left w-2/3">
-                                    Karakteristik
-                                  </TableHead>
-                                </TableRow>
-                              </TableHeader>
-                              <TableBody>
-                                {Object.entries(
-                                  getCharacteristicsByCategory(
-                                    predictedMammal.characteristics
-                                  )
-                                ).map(([category, characteristics]) =>
-                                  characteristics &&
-                                  characteristics.length > 0 ? (
-                                    <TableRow key={category}>
-                                      <TableCell className="font-bold bg-white text-start">
-                                        {category
-                                          .replace(/([a-z])([A-Z])/g, "$1 $2")
-                                          .replace(/^./, (str) =>
-                                            str.toUpperCase()
-                                          )}
-                                      </TableCell>
-                                      <TableCell className="bg-white text-start">
-                                        {characteristics.map((char, index) => (
-                                          <div
-                                            key={index}
-                                            className="mb-1 last:mb-0"
-                                          >
-                                            {char}
-                                          </div>
-                                        ))}
-                                      </TableCell>
-                                    </TableRow>
-                                  ) : null
-                                )}
-                              </TableBody>
-                            </Table>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-
-                    <Button
-                      onClick={resetExpertSystem}
-                      className="bg-red text-white px-4 py-2 rounded hover:bg-green-600"
-                    >
-                      Mulai Ulang
-                    </Button>
+                    <div className="p-4">
+                      <Table className="w-full">
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="text-left w-1/3">
+                              Kategori
+                            </TableHead>
+                            <TableHead className="text-left w-2/3">
+                              Karakteristik
+                            </TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {Object.entries(
+                            getCharacteristicsByCategory(
+                              predictedMammal.characteristics
+                            )
+                          ).map(([category, characteristics]) =>
+                            characteristics && characteristics.length > 0 ? (
+                              <TableRow key={category}>
+                                <TableCell className="font-bold bg-white text-start">
+                                  {category
+                                    .replace(/([a-z])([A-Z])/g, "$1 $2")
+                                    .replace(/^./, (str) => str.toUpperCase())}
+                                </TableCell>
+                                <TableCell className="bg-white text-start">
+                                  {characteristics.map((char, index) => (
+                                    <div key={index} className="mb-1 last:mb-0">
+                                      {char}
+                                    </div>
+                                  ))}
+                                </TableCell>
+                              </TableRow>
+                            ) : null
+                          )}
+                        </TableBody>
+                      </Table>
+                    </div>
                   </div>
-                </>
+
+                  <Button
+                    onClick={resetExpertSystem}
+                    className="bg-red text-white px-4 py-2 rounded hover:bg-green-600"
+                  >
+                    Mulai Ulang
+                  </Button>
+                </div>
               )
             )}
           </div>
