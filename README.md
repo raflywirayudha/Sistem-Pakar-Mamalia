@@ -30,22 +30,22 @@
 
 #### Landing Page Screen
 
-![Landing Page Screen](/screenshots/landing_page.png)
+![Landing Page Screen](public/screenshots/landing_page.png)
 _Simple landing page_
 
 #### Question Screen
 
-![Question Screen](/screenshots/question.png)
+![Question Screen](public/screenshots/question.png)
 _Interactive question interface with Yes/Maybe/No options_
 
 #### Result Screen
 
-![Result Screen](/screenshots/result.png)
+![Result Screen](public/screenshots/result.png)
 _Detailed result display showing the identified mammal with characteristics_
 
 #### No Match Screen
 
-![No Match Screen](/screenshots/no-match.png)
+![No Match Screen](public/screenshots/no_match.png)
 _Screen shown when no matching mammal is found_
 
 ## 🦒 Supported Mammals
