@@ -6,12 +6,6 @@ import { useState } from "react";
 import { AlertCircle, Check, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Mammal, Question } from "../types/mammal";
 import { MAMMALS } from "../data/mammals";
 import { QUESTIONS } from "../types/mammal";
