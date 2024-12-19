@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Progress from "@/components/ui/progress";
-import { AlertCircle, Check, HelpCircle } from "lucide-react";
+import { AlertCircle, Check } from "lucide-react";
 
 interface Mammal {
   name: string;
@@ -594,21 +593,27 @@ const MammalExpertSystem = () => {
       <Card className="bg-white p-6 md:p-10 w-full max-w-xl flex items-center justify-center">
         {!predictionResult ? (
           <div>
-            <h2 className="text-2xl font-bold mb-4">{currentQuestion.text}</h2>
-            <p className="text-gray-600 mb-6">{currentQuestion.description}</p>
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              {currentQuestion.text}
+            </h2>
+            <p className="text-gray-600 mb-6 text-center">
+              {currentQuestion.description}
+            </p>
             <div className="grid grid-cols-2 gap-3">
               {currentQuestion.options.map((option) => (
                 <Button
                   key={option}
                   onClick={() => handleAnswer(option)}
-                  className="w-full justify-center py-3 bg-yellow"
+                  className="w-full justify-center py-3 bg-green"
                 >
                   {option}
                 </Button>
               ))}
             </div>
-            <div className="mt-4 text-sm text-gray-500">
-              Question {currentQuestionIndex + 1} of {QUESTIONS.length}
+            <div className="mt-4 text-sm text-gray-500 text-end">
+              Pertanyaan{" "}
+              <span className="font-bold">{currentQuestionIndex + 1}</span> dari{" "}
+              <span className="font-bold">{QUESTIONS.length}</span>
             </div>
           </div>
         ) : (
@@ -618,12 +623,11 @@ const MammalExpertSystem = () => {
                 {predictionResult.mammal.name}
               </h2>
               <div className="flex flex-col items-center space-y-2">
-                <Progress
-                  value={predictionResult.accuracy}
-                  className="w-full"
-                />
                 <p className="text-sm text-gray-600">
-                  Akurasi Prediksi: {predictionResult.accuracy.toFixed(1)}%
+                  Akurasi Prediksi: <br />
+                  <span className="font-bold text-4xl text-green">
+                    {predictionResult.accuracy.toFixed(1)}%
+                  </span>
                 </p>
               </div>
             </div>
